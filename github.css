@@ -1,0 +1,335 @@
+body {
+    background: linear-gradient(to bottom,
+    #0058e9 0%,
+    #3a93ff 8%,
+    #0058e9 15%,
+    #0058e9 85%,
+    #002e96 100%);
+    perspective: 1000px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+}
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+    font-family: 'Tahoma', 'Segoe UI', sans-serif;
+    overflow: hidden; /* Évite le scroll inutile */
+}
+
+/* 2. MISE EN PAGE : CENTRAGE ET ALIGNEMENT */
+.screen-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 90%;
+    padding: 0 50px;
+    box-sizing: border-box;
+}
+
+.content-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px; /* TRÈS GRAND ESPACE entre l'image et la liste */
+    filter: saturate(1.5);
+    flex-wrap: nowrap !important;
+    padding-left: 2%;               /* Ajuste cette valeur pour coller plus ou moins au bord gauche */
+    padding-right: 5%;
+}
+
+/* 3. STYLE DE L'IMAGE (Collée à gauche) */
+.side-image {
+    width: 750px; /* Image agrandie */
+    height: auto;
+    margin-left: 0; /* Colle au bord gauche */
+    flex-shrink: 0;
+    border: 3px solid #fff;
+    box-shadow: 15px 15px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.2));
+    filter: saturate(1.5);
+}
+
+/* 4. STYLE DE LA LISTE XP */
+.xp-explorer {
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+    background: #ece9d8; /* Gris-beige Windows XP */
+    border: 2px solid #0055e5;
+    border-radius: 5px;
+    box-shadow: 15px 15px 0px rgba(0, 0, 0, 0.2);
+    min-width: 250px; /* Évite que la liste soit trop étroite */
+    flex-shrink: 0;
+    flex: 1;
+    max-width: 500px;
+    margin-left: auto;
+}
+
+/* Style des éléments de liste */
+.xp-explorer li {
+    margin-bottom: 8px;
+    padding: 0; /* Padding à 0 pour que le lien prenne toute la place */
+}
+
+/* ZONE DE CLIC TOTALE (La modification demandée) */
+.full-link {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #000;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.1s;
+    border-radius: 2px;
+}
+
+/* Icône dossier avant le texte */
+.full-link::before {
+    content: "📂";
+    margin-right: 20px;
+    font-size: 32px; /* Dossier agrandi */
+    flex-shrink: 0;
+}
+
+/* Texte à l'intérieur du lien */
+.item-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 24px; /* Titre plus grand */
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.title::after {
+    content: " ↗️"; /* L'icône de flèche sortante */
+    font-size: 14px; /* Un peu plus petite que le titre pour rester discret */
+    vertical-align: middle;
+    margin-left: 8px;
+    opacity: 0.7; /* Légèrement transparente par défaut */
+    transition: opacity 0.2s;
+}
+
+.full-link:hover .title::after {
+    opacity: 1;
+    filter: brightness(2); /* Rend l'émoji plus éclatant sur le bleu */
+}
+
+.description {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* EFFET DE SURVOL (Hover) SUR TOUTE LA ZONE */
+.full-link:hover {
+    background-color: #316ac5; /* Bleu de sélection Windows XP */
+    color: white !important;
+}
+
+.full-link:hover .description,
+.full-link:hover .title {
+    color: white; /* Tout le texte passe en blanc au survol */
+}
+
+/* Petit effet de clic */
+.full-link:active {
+    background-color: #08246b;
+}
+
+.side-image:hover {
+    /* Simule un petit bug de terminal ou un effet néon */
+    transform: translate(-2px, -2px);
+    filter: drop-shadow(2px 2px 0px #316ac5) drop-shadow(6px 6px 10px rgba(0,0,0,0.4));
+    filter: saturate(1.5);
+
+}
+
+
+
+
+
+@keyframes floatingClippy {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2.5vmin); }
+}
+
+/* --- LA FEUILLE (Le socle) --- */
+.paper {
+    width: 18vmin;
+    height: 24vmin;
+    background: #f8f8d0;
+    background-image:
+            linear-gradient(to right, transparent 15%, #f64 0 16%, transparent 0),
+            repeating-linear-gradient(transparent 0 9%, #6ba 0 9.25%);
+    position: absolute;
+    transform: rotateY(25deg) rotateX(75deg) rotateZ(-30deg);
+    bottom: -1vmin;
+    left: 4vmin;
+    z-index: 1;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+/* --- LE TROMBONE (Bien positionné sur la feuille) --- */
+.clip {
+    position: absolute;
+    /* Ajustement précis pour le centre de la feuille incliné */
+    bottom: 8.5vmin;
+    left: 8.5vmin;
+    width: 9vmin;
+    height: 12vmin;
+    border: 1vmin solid #aaa;
+    border-top: 0;
+    border-radius: 0 0 10vmin 10vmin;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.clip::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -15vmin;
+    left: -1vmin;
+    width: 7.75vmin;
+    height: 15vmin;
+    border: 1vmin solid #aaa;
+    border-bottom: 0;
+    border-radius: 10vmin 10vmin 0 0;
+    box-sizing: border-box;
+}
+
+.clip::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -2.5vmin;
+    left: 0.25vmin;
+    width: 6.5vmin;
+    height: 9vmin;
+    border: 1vmin solid #aaa;
+    border-top: 0;
+    border-radius: 0 0 10vmin 10vmin;
+    box-sizing: border-box;
+}
+
+/* --- LES YEUX --- */
+.eye {
+    position: absolute;
+    top: -75%;
+    left: -35%;
+    width: 75%;
+    height: 35%;
+    background: white;
+    border-radius: 50%;
+    z-index: 3;
+    background-image: radial-gradient(circle, black 15%, transparent 0);
+    box-shadow: inset 0 1.25vmin 0 -0.5vmin #aaa, inset 0 0 1vmin #aaa;
+}
+
+.eye::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -20%;
+    width: 100%;
+    height: 90%;
+    border-radius: 50%;
+    box-shadow: -0.25vmin -1vmin 0 -0.25vmin black;
+}
+
+.eye + .eye { left: 45%; }
+.eye + .eye::before { box-shadow: 0.25vmin -1vmin 0 -0.25vmin black; }
+
+/* --- LA BULLE (Correction de la pointe) --- */
+.popup {
+    position: absolute;
+    bottom: 34vmin;
+    left: 4vmin;
+    width: 38vmin;
+    padding: 2vmin;
+    background: #ffc;
+    border-radius: 1.5vmin;
+    border: 0.4vmin solid #666;
+    font-size: 3vmin;
+    font-family: "Tahoma", sans-serif;
+    font-weight: normal;
+    line-height: 1.2;
+    z-index: 4;
+}
+
+/* LA POINTE NETTE (Correction du trait bleu) */
+.popup::before {
+    content: "";
+    position: absolute;
+    top: 100%;       /* Juste en dessous de la bulle */
+    left: 20%;       /* Aligné avec Clippy */
+    width: 0;
+    height: 0;
+    /* On crée le triangle avec des bordures, plus propre qu'un clip-path ici */
+    border-left: 2vmin solid transparent;
+    border-right: 2vmin solid transparent;
+    border-top: 4vmin solid #666; /* La bordure noire */
+    margin-top: -0.1vmin;
+}
+
+.popup::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 20%;
+    width: 0;
+    height: 0;
+    border-left: 1.6vmin solid transparent;
+    border-right: 1.6vmin solid transparent;
+    border-top: 3.5vmin solid #ffc; /* Le remplissage jaune */
+    margin-left: 0.4vmin; /* Ajustement pour centrer dans la bordure noire */
+    margin-top: -0.5vmin;
+}
+
+.clippy-fixed-container {
+    position: relative; /* Très important pour rester à côté du menu */
+    width: 40vmin;
+    height: 45vmin;
+    perspective: 1000px;
+    animation: floatingClippy 3s ease-in-out infinite;
+    margin-left: 0;  /* Pousse Clippy plus vers la gauche de la page */
+    margin-top: 80px;    /* Descend Clippy pour l'aligner avec le menu (plus le chiffre est grand plus il descend)*/
+    flex-shrink: 0;
+}
+
+
+
+
+.content-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;   /* Aligne les bases de Clippy et du menu */
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.xp-explorer {
+    flex: 1;
+    max-width: 450px;      /* Empêche le menu d'être trop géant */
+    min-width: 300px;      /* Largeur minimum sur mobile */
+}
