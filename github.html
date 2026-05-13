@@ -1,58 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Mes projets</title>
     <link rel="stylesheet" href="github.css">
 </head>
 <body>
-    <div class="screen-wrapper">
-        <!-- Ce conteneur aligne l'image et la liste côte à côte -->
-        <div class="content-row">
+<div class="screen-wrapper">
+    <div class="content-row">
 
-            <div class="clippy-fixed-container">
-                <div class="paper"></div>
-                <div class="clip">
-                    <div class="eye"></div>
-                    <div class="eye"></div>
-                </div>
-                <div class="popup">
-                    <p>Voici la liste de mon portefolio</p>
-                    <strong> Bonne lecture </strong>
-                </div>
+        <!-- Conteneur de Clippy -->
+        <div class="clippy-fixed-container">
+            <div class="paper"></div>
+            <div class="clip">
+                <div class="eye"></div>
+                <div class="eye"></div>
             </div>
+            <div class="popup">
+                <p>Voici la liste de mon portefolio</p>
+                <strong> Bonne lecture </strong>
+            </div>
+        </div>
 
+        <!-- Liste des projets (Reste centrée) -->
+        <ul class="xp-explorer">
+            <li>
+                <a href="https://larocheanthony22.github.io/Mon_CV/cv.html" class="full-link" target="_blank" rel="noopener noreferrer">
+                    <div class="item-content">
+                        <span class="title">Mon CV</span>
+                        <p class="description">Mon CV en html et css</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="https://larocheanthony22.github.io/exercice_1_chocolat/HTML/accueil.html" class="full-link" target="_blank" rel="noopener noreferrer">
+                    <div class="item-content">
+                        <span class="title">Artisanale Chocolate</span>
+                        <p class="description">Travail sur un site de chocolatier.</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="https://larocheanthony22.github.io/projet-anthony/view/accueil.html" class="full-link" target="_blank" rel="noopener noreferrer">
+                    <div class="item-content">
+                        <span class="title">FC Mariner</span>
+                        <p class="description">Test formatif sur un thème perso (équipe de foot fictive).</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
 
-            <ul class="xp-explorer">
-                <li>
-                    <a href="https://larocheanthony22.github.io/Mon_CV/cv.html" class="full-link"target="_blank" rel="noopener noreferrer">
-                        <div class="item-content">
-                            <span class="title">Mon CV</span>
-                            <p class="description">Mon CV en html et css</p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://larocheanthony22.github.io/exercice_1_chocolat/HTML/accueil.html" class="full-link"target="_blank" rel="noopener noreferrer">
-                        <div class="item-content">
-                            <span class="title">Artisanale Chocolate</span>
-                            <p class="description">Travail sur un site de chocolatier.</p>
-                        </div>
-                    </a>
-                </li>
+    </div>
+</div>
 
-                <li>
-                    <a href="https://larocheanthony22.github.io/projet-anthony/view/accueil.html" class="full-link"target="_blank" rel="noopener noreferrer">
-                        <div class="item-content">
-                            <span class="title">FC Mariner</span>
-                            <p class="description">Test formatif sur un thème perso(équipe de foot fictive).</p>
-                        </div>
-                    </a>
-                </li>
+<!-- LA BARRE DES TÂCHES WINDOWS XP -->
+<div class="xp-taskbar">
+    <button class="xp-start-button">
+        <span class="start-flag">❖</span> start
+    </button>
 
-            </ul>
+    <div class="xp-quick-launch">
+        <span class="quick-icon" title="Internet Explorer">🌐</span>
+        <span class="quick-icon" title="Lecteur Windows Media">▶️</span>
+        <span class="quick-icon" title="Afficher le bureau">🖥️</span>
+    </div>
 
+    <div class="xp-tasks-container">
+        <div class="xp-task-tab active">
+            <span>📂 Mes projets</span>
         </div>
     </div>
+
+    <div class="xp-system-tray">
+        <span class="tray-icon">🔊</span>
+        <div id="xp-clock" class="xp-clock">--:--</div>
+    </div>
+</div>
+
+<!-- SCRIPT LIVE DE L'HORLOGE -->
+<script>
+    function updateXPClock() {
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        document.getElementById('xp-clock').textContent = hours + ':' + minutes;
+    }
+    setInterval(updateXPClock, 1000);
+    updateXPClock();
+</script>
 </body>
 </html>
