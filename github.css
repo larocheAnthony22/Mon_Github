@@ -1,10 +1,16 @@
 body {
-    background: linear-gradient(to bottom,
-    #0058e9 0%,
-    #3a93ff 8%,
-    #0058e9 15%,
-    #0058e9 85%,
-    #002e96 100%);
+    background:
+            radial-gradient(ellipse 130% 70% at 40% 115%,
+            #79b740 0%,
+            #4a9c1d 45%,
+            rgba(74, 156, 29, 0) 85%
+            ),
+            linear-gradient(to bottom,
+            #3B77BC 0%,
+            #64A2D8 100%
+            );
+    background-attachment: fixed;
+    background-color: #3B77BC;
     perspective: 1000px;
     position: absolute;
     top: 0;
@@ -12,17 +18,17 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-
+    margin: 0;
+    padding: 0;
+    font-family: 'Tahoma', 'Segoe UI', sans-serif;
 }
 
-
-body, html {
+html {
     margin: 0;
     padding: 0;
     height: 100vh;
     width: 100%;
-    font-family: 'Tahoma', 'Segoe UI', sans-serif;
-    overflow: hidden; /* Évite le scroll inutile */
+    overflow: hidden;
 }
 
 /* 2. MISE EN PAGE : CENTRAGE ET ALIGNEMENT */
@@ -30,36 +36,21 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 90%;
-    padding: 0 50px;
+    height: calc(100vh - 30px); /* Laisse la place pour la barre des tâches */
+    width: 100%;
+    padding: 0 40px;
     box-sizing: border-box;
 }
 
 .content-row {
+    position: relative; /* Indispensable pour ancrer Clippy en absolu */
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: flex-end; /* Aligne les éléments par le bas */
     width: 100%;
-    justify-content: space-between;
-    gap: 20px; /* TRÈS GRAND ESPACE entre l'image et la liste */
+    justify-content: center; /* Garde la liste parfaitement centrée sur l'écran */
     filter: saturate(1.5);
     flex-wrap: nowrap !important;
-    padding-left: 2%;               /* Ajuste cette valeur pour coller plus ou moins au bord gauche */
-    padding-right: 5%;
-}
-
-/* 3. STYLE DE L'IMAGE (Collée à gauche) */
-.side-image {
-    width: 750px; /* Image agrandie */
-    height: auto;
-    margin-left: 0; /* Colle au bord gauche */
-    flex-shrink: 0;
-    border: 3px solid #fff;
-    box-shadow: 15px 15px 0px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.2));
-    filter: saturate(1.5);
 }
 
 /* 4. STYLE DE LA LISTE XP */
@@ -67,24 +58,22 @@ body, html {
     list-style: none;
     padding: 20px;
     margin: 0;
-    background: #ece9d8; /* Gris-beige Windows XP */
+    background: #ece9d8;
     border: 2px solid #0055e5;
     border-radius: 5px;
     box-shadow: 15px 15px 0px rgba(0, 0, 0, 0.2);
-    min-width: 250px; /* Évite que la liste soit trop étroite */
+    min-width: 320px;
     flex-shrink: 0;
     flex: 1;
-    max-width: 500px;
-    margin-left: auto;
+    max-width: 480px;
+    z-index: 1;
 }
 
-/* Style des éléments de liste */
 .xp-explorer li {
     margin-bottom: 8px;
-    padding: 0; /* Padding à 0 pour que le lien prenne toute la place */
+    padding: 0;
 }
 
-/* ZONE DE CLIC TOTALE (La modification demandée) */
 .full-link {
     display: flex;
     flex-direction: row;
@@ -98,38 +87,31 @@ body, html {
     border-radius: 2px;
 }
 
-/* Icône dossier avant le texte */
 .full-link::before {
     content: "📂";
     margin-right: 20px;
-    font-size: 32px; /* Dossier agrandi */
+    font-size: 32px;
     flex-shrink: 0;
 }
 
-/* Texte à l'intérieur du lien */
 .item-content {
     display: flex;
     flex-direction: column;
 }
 
 .title {
-    font-size: 24px; /* Titre plus grand */
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 4px;
 }
 
 .title::after {
-    content: " ↗️"; /* L'icône de flèche sortante */
-    font-size: 14px; /* Un peu plus petite que le titre pour rester discret */
+    content: " ↗️";
+    font-size: 14px;
     vertical-align: middle;
     margin-left: 8px;
-    opacity: 0.7; /* Légèrement transparente par défaut */
+    opacity: 0.7;
     transition: opacity 0.2s;
-}
-
-.full-link:hover .title::after {
-    opacity: 1;
-    filter: brightness(2); /* Rend l'émoji plus éclatant sur le bleu */
 }
 
 .description {
@@ -139,197 +121,145 @@ body, html {
     line-height: 1.4;
 }
 
-/* EFFET DE SURVOL (Hover) SUR TOUTE LA ZONE */
+/* HOVER WINDOWS XP */
 .full-link:hover {
-    background-color: #316ac5; /* Bleu de sélection Windows XP */
+    background-color: #316ac5;
     color: white !important;
 }
 
 .full-link:hover .description,
 .full-link:hover .title {
-    color: white; /* Tout le texte passe en blanc au survol */
+    color: white;
 }
 
-/* Petit effet de clic */
+.full-link:hover .title::after {
+    opacity: 1;
+    filter: brightness(2);
+}
+
 .full-link:active {
     background-color: #08246b;
 }
 
-.side-image:hover {
-    /* Simule un petit bug de terminal ou un effet néon */
-    transform: translate(-2px, -2px);
-    filter: drop-shadow(2px 2px 0px #316ac5) drop-shadow(6px 6px 10px rgba(0,0,0,0.4));
-    filter: saturate(1.5);
+/* ==========================================================================
+   STRUCTURE DE CLIPPY (ALIGNÉ COMPLÈTEMENT EN BAS À GAUCHE)
+   ========================================================================== */
+@keyframes floatingClippy { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.5vmin); } }
 
+.clippy-fixed-container {
+    position: absolute; /* Sort Clippy du flux pour ne pas pousser la liste */
+    left: 5vw;          /* Distance par rapport au bord gauche */
+    bottom: 0;          /* S'aligne parfaitement sur la même ligne du bas que la liste */
+    width: 30vmin;
+    height: 35vmin;
+    perspective: 1000px;
+    animation: floatingClippy 3s ease-in-out infinite;
+    flex-shrink: 0;
+    z-index: 10;
 }
 
-
-
-
-
-@keyframes floatingClippy {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-2.5vmin); }
-}
-
-/* --- LA FEUILLE (Le socle) --- */
 .paper {
-    width: 18vmin;
-    height: 24vmin;
+    width: 14vmin; height: 19vmin;
     background: #f8f8d0;
-    background-image:
-            linear-gradient(to right, transparent 15%, #f64 0 16%, transparent 0),
-            repeating-linear-gradient(transparent 0 9%, #6ba 0 9.25%);
-    position: absolute;
-    transform: rotateY(25deg) rotateX(75deg) rotateZ(-30deg);
-    bottom: -1vmin;
-    left: 4vmin;
-    z-index: 1;
+    background-image: linear-gradient(to right, transparent 15%, #f64 0 16%, transparent 0), repeating-linear-gradient(transparent 0 9%, #6ba 0 9.25%);
+    position: absolute; transform: rotateY(25deg) rotateX(75deg) rotateZ(-30deg);
+    bottom: -1vmin; left: 2vmin; z-index: 1;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
 }
 
-/* --- LE TROMBONE (Bien positionné sur la feuille) --- */
 .clip {
-    position: absolute;
-    /* Ajustement précis pour le centre de la feuille incliné */
-    bottom: 8.5vmin;
-    left: 8.5vmin;
-    width: 9vmin;
-    height: 12vmin;
-    border: 1vmin solid #aaa;
-    border-top: 0;
-    border-radius: 0 0 10vmin 10vmin;
-    box-sizing: border-box;
-    z-index: 2;
+    position: absolute; bottom: 6vmin; left: 6vmin; width: 7vmin; height: 9.5vmin;
+    border: 0.8vmin solid #aaa; border-top: 0; border-radius: 0 0 8vmin 8vmin;
+    box-sizing: border-box; z-index: 2;
 }
-
 .clip::before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: -15vmin;
-    left: -1vmin;
-    width: 7.75vmin;
-    height: 15vmin;
-    border: 1vmin solid #aaa;
-    border-bottom: 0;
-    border-radius: 10vmin 10vmin 0 0;
-    box-sizing: border-box;
+    content: ""; position: absolute; top: -12vmin; left: -0.8vmin; width: 6vmin; height: 12vmin;
+    border: 0.8vmin solid #aaa; border-bottom: 0; border-radius: 8vmin 8vmin 0 0; box-sizing: border-box;
 }
-
 .clip::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: -2.5vmin;
-    left: 0.25vmin;
-    width: 6.5vmin;
-    height: 9vmin;
-    border: 1vmin solid #aaa;
-    border-top: 0;
-    border-radius: 0 0 10vmin 10vmin;
-    box-sizing: border-box;
+    content: ""; position: absolute; top: -2vmin; left: 0.25vmin; width: 4.8vmin; height: 7vmin;
+    border: 0.8vmin solid #aaa; border-top: 0; border-radius: 0 0 8vmin 8vmin; box-sizing: border-box;
 }
 
-/* --- LES YEUX --- */
 .eye {
-    position: absolute;
-    top: -75%;
-    left: -35%;
-    width: 75%;
-    height: 35%;
-    background: white;
-    border-radius: 50%;
-    z-index: 3;
+    position: absolute; top: -75%; left: -35%; width: 75%; height: 35%;
+    background: white; border-radius: 50%; z-index: 3;
     background-image: radial-gradient(circle, black 15%, transparent 0);
-    box-shadow: inset 0 1.25vmin 0 -0.5vmin #aaa, inset 0 0 1vmin #aaa;
+    box-shadow: inset 0 1vmin 0 -0.4vmin #aaa, inset 0 0 0.8vmin #aaa;
 }
-
-.eye::before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: -20%;
-    width: 100%;
-    height: 90%;
-    border-radius: 50%;
-    box-shadow: -0.25vmin -1vmin 0 -0.25vmin black;
-}
-
+.eye::before { content: ""; position: absolute; top: -20%; width: 100%; height: 90%; border-radius: 50%; box-shadow: -0.2vmin -0.8vmin 0 -0.2vmin black; }
 .eye + .eye { left: 45%; }
-.eye + .eye::before { box-shadow: 0.25vmin -1vmin 0 -0.25vmin black; }
+.eye + .eye::before { box-shadow: 0.2vmin -0.8vmin 0 -0.2vmin black; }
 
-/* --- LA BULLE (Correction de la pointe) --- */
 .popup {
-    position: absolute;
-    bottom: 34vmin;
-    left: 4vmin;
-    width: 38vmin;
-    padding: 2vmin;
-    background: #ffc;
-    border-radius: 1.5vmin;
-    border: 0.4vmin solid #666;
-    font-size: 3vmin;
-    font-family: "Tahoma", sans-serif;
-    font-weight: normal;
-    line-height: 1.2;
-    z-index: 4;
+    position: absolute; bottom: 26vmin; left: 2vmin; width: 32vmin; padding: 2vmin;
+    background: #ffc; border-radius: 1.5vmin; border: 0.3vmin solid #666;
+    font-size: 2.2vmin; font-weight: normal; line-height: 1.2; z-index: 4;
+}
+.popup::before { content: ""; position: absolute; top: 100%; left: 20%; width: 0; height: 0; border-left: 1.5vmin solid transparent; border-right: 1.5vmin solid transparent; border-top: 3vmin solid #666; }
+.popup::after { content: ""; position: absolute; top: 100%; left: 20%; width: 0; height: 0; border-left: 1.2vmin solid transparent; border-right: 1.2vmin solid transparent; border-top: 2.6vmin solid #ffc; margin-left: 0.3vmin; margin-top: -0.3vmin; }
+
+
+/* ==========================================================================
+   CODE BARRE DES TÂCHES WINDOWS XP
+   ========================================================================== */
+.xp-taskbar {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100vw; height: 30px;
+    background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #1b4fae 50%, #245edb 85%, #1941a5 100%);
+    border-top: 1px solid #1a3b83;
+    display: flex; flex-direction: row;
+    align-items: center; justify-content: space-between;
+    z-index: 9999;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
 }
 
-/* LA POINTE NETTE (Correction du trait bleu) */
-.popup::before {
-    content: "";
-    position: absolute;
-    top: 100%;       /* Juste en dessous de la bulle */
-    left: 20%;       /* Aligné avec Clippy */
-    width: 0;
-    height: 0;
-    /* On crée le triangle avec des bordures, plus propre qu'un clip-path ici */
-    border-left: 2vmin solid transparent;
-    border-right: 2vmin solid transparent;
-    border-top: 4vmin solid #666; /* La bordure noire */
-    margin-top: -0.1vmin;
+.xp-start-button {
+    height: 100%; border: none;
+    background: linear-gradient(to bottom, #388238 0%, #5ba95b 10%, #388238 20%, #2a6b2a 60%, #1e4b1e 100%);
+    color: white; font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold; font-style: italic; font-size: 16px;
+    padding: 0 15px 0 10px; cursor: pointer;
+    display: flex; align-items: center; gap: 5px;
+    border-top-right-radius: 8px; border-bottom-right-radius: 8px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3), inset 1px 1px 0 rgba(255,255,255,0.4);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.7);
 }
+.xp-start-button:hover { background: linear-gradient(to bottom, #429a42 0%, #6ec26e 10%, #429a42 20%, #317e31 60%, #225722 100%); }
+.xp-start-button .start-flag { font-style: normal; font-size: 14px; color: #fff; text-shadow: none; }
 
-.popup::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 20%;
-    width: 0;
-    height: 0;
-    border-left: 1.6vmin solid transparent;
-    border-right: 1.6vmin solid transparent;
-    border-top: 3.5vmin solid #ffc; /* Le remplissage jaune */
-    margin-left: 0.4vmin; /* Ajustement pour centrer dans la bordure noire */
-    margin-top: -0.5vmin;
+.xp-quick-launch {
+    display: flex; flex-direction: row; align-items: center;
+    gap: 8px; padding-left: 10px; border-right: 1px solid rgba(0,0,0,0.15);
+    box-shadow: 1px 0 0 rgba(255,255,255,0.15); height: 70%;
 }
+.quick-icon { font-size: 16px; cursor: pointer; transition: transform 0.1s; }
+.quick-icon:hover { transform: scale(1.15); }
 
-.clippy-fixed-container {
-    position: relative; /* Très important pour rester à côté du menu */
-    width: 40vmin;
-    height: 45vmin;
-    perspective: 1000px;
-    animation: floatingClippy 3s ease-in-out infinite;
-    margin-left: 0;  /* Pousse Clippy plus vers la gauche de la page */
-    margin-top: 80px;    /* Descend Clippy pour l'aligner avec le menu (plus le chiffre est grand plus il descend)*/
-    flex-shrink: 0;
+.xp-tasks-container {
+    flex: 1; display: flex; align-items: center; padding: 0 10px; height: 100%;
 }
-
-
-
-
-.content-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-end;   /* Aligne les bases de Clippy et du menu */
-    flex-wrap: wrap;
-    padding: 20px;
+.xp-task-tab {
+    background: linear-gradient(to bottom, #1e52c8 0%, #3a75ea 10%, #1e52c8 25%, #153fa7 70%, #153696 100%);
+    height: 22px; max-width: 150px; min-width: 100px;
+    border-radius: 3px; border: 1px solid #112d7c;
+    box-shadow: inset 1px 1px 1px rgba(255,255,255,0.2);
+    color: white; font-size: 11px; display: flex; align-items: center;
+    padding: 0 8px; box-sizing: border-box; cursor: pointer;
 }
+.xp-task-tab.active { background: linear-gradient(to bottom, #153799 0%, #1c49bd 20%, #163a9f 50%, #0f2777 100%); }
 
-.xp-explorer {
-    flex: 1;
-    max-width: 450px;      /* Empêche le menu d'être trop géant */
-    min-width: 300px;      /* Largeur minimum sur mobile */
+.xp-system-tray {
+    height: 100%; background: linear-gradient(to bottom, #0c82e9 0%, #0f93ff 10%, #006be1 25%, #0050c1 70%, #003fa7 100%);
+    border-left: 1px solid #003399; display: flex; align-items: center;
+    gap: 12px; padding: 0 15px; box-shadow: inset 1px 0 1px rgba(255,255,255,0.3);
+}
+.tray-icon { font-size: 14px; cursor: pointer; color: white; }
+
+.xp-clock {
+    color: white; font-size: 12px; font-weight: normal;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
 }
